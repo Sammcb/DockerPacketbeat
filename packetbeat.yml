@@ -1,0 +1,26 @@
+packetbeat:
+  interfaces:
+    type: af_packet
+    device: any
+  protocols:
+    - type: dns
+      ports: [53]
+    - type: http
+      ports: [80, 8080, 8081, 5000, 8002]
+    - type: pgsql
+      ports: [5432]
+output:
+  logstash.hosts: ["logstash:5044"]
+  elasticsearch:
+    enabled: false
+    hosts: ["elasticsearch:9200"]
+    username: ${ADMIN_USER}
+    password: ${ADMIN_PASSWORD}
+setup:
+  kibana:
+    host: "kibana:5601"
+    username: ${ADMIN_USER}
+    password: ${ADMIN_PASSWORD}
+http:
+  enabled: true
+  host: 0.0.0.0
